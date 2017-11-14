@@ -1,0 +1,92 @@
+.PlayerCard {
+    display: flex;
+    flex-direction: column;
+    /*height: 330px;*/
+    width: 360px;
+    background: #FFFFFF;
+    border: 2px solid #E4F1FD;
+    box-shadow: 0 8px 13px 3px rgba(0,0,0,0.16);
+    border-radius: 6px;
+    margin: 15px;
+}
+
+.PlayerCard-header {
+    display: flex;
+    height: 51px;
+    border-bottom: 1px solid #E4F1FD;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px 17px;
+    cursor: pointer;
+}
+
+.PlayerCard-header-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
+    padding-top: 4px;
+}
+
+.PlayerCard-header-thumbnail {
+    height: 50px;
+    width: 50px;
+}
+
+.PlayerCard-content {
+    display: flex;
+    width: 100%;
+    height: 239px;
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.PlayerCard-content-info {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.PlayerCard-content-info-section,
+.PlayerCard-content-info-projected {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.PlayerCard-content-info-section div,
+.PlayerCard-content-info-projected div {
+    display: flex;
+    flex: 1;
+    align-self: stretch;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding-right: 20px;
+}
+
+.PlayerCard-content-info-projected div {
+    border-left: 1px solid #E4F1FD;
+}
+
+.PlayerCard-content-info-section p,
+.PlayerCard-content-info-projected p {
+    margin-left: 20px;
+}
+
+.PlayerCard-rating {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+}
+
+.PlayerCard-star {
+    margin-right: 3px;
+}
+
