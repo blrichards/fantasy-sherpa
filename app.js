@@ -119,7 +119,7 @@ app.get('/auth/yahoo/callback', function(req, res) {
 
         const user = new User({
           guid: guid,
-          email: body.profile.emails[0].handle,
+          email: body.profile.email,
           profileImage: body.profile.image.imageUrl,
           firstName: body.profile.givenName,
           lastName: body.profile.familyName,
