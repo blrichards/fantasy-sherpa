@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const { execSync } = require('child_process')
+
+/* Build all apps */
+
+const appFolder = './apps'
+
+console.log('\nstarting a new Fantasy Sherpa build\n')
+
+try {
+  console.log('-- installing production builds for react apps')
+  fs.readdirSync(appFolder).forEach(app => {
+    console.log(`---- installing '${app}'\n`)
+    process.chdir(`apps/${app}`)
+    execSync('yarn --production=false && yarn build', {stdio: [0,1,2]})
+    process.chdir('../..')
+    console.log(`---- '${app}' successfully installed`)
+  })
+  console.log('-- all production builds installed\n')
+} catch (e) {
+  console.log(e)
+  console.log('build failed\n')
+}
+
+console.log('build complete\n')
+console.log('\trun `yarn {start|dev}` to begin serving fantasy-sherpa\n')

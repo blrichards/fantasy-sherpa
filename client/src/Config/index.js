@@ -1,2 +1,0 @@
-import './ReactotronConfig'
-import './MobxConfig'
