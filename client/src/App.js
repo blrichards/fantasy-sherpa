@@ -8,26 +8,10 @@ import { Client, ClientState } from './Stores/Client'
 import PlayerCard from './Components/PlayerCard/index'
 import './App.css'
 
-const espnUsername = 'blrichards@utexas.edu'
-const espnPassword = 'Benton97'
-
 @observer
 class App extends Component {
   static propTypes = {
     client: PropTypes.instanceOf(Client).isRequired,
-  }
-
-  constructor (props) {
-    super(props)
-
-    const { client } = this.props
-    client.authorize(espnUsername, espnPassword).then(() => {
-      if (client.loggedIn) {
-          client.setLeague('16201', '2016').then(() => {
-            console.tron.log(client.league)
-          })
-      }
-    })
   }
 
   render () {

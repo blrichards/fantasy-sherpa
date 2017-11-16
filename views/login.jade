@@ -1,0 +1,18 @@
+doctype html
+html
+    head
+        title #{title} | My App
+        link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/main.css')
+    body
+        .LoginPanel
+            .LoginPanel-body
+                .LoginPanel-section
+                    h1.LoginTitle login
+                    p.LoginParagraph Login to your NFL Fantasy football account so we can start trekking up
+                .LoginPanel-section
+                    a.btn.LoginButton(href="/auth/yahoo") Login with Yahoo!
+
+
+script(src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js')
