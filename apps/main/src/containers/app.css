@@ -1,0 +1,53 @@
+
+.App {
+    /*text-align: center;*/
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    flex-wrap: wrap;
+}
+
+.NavBar {
+    position: relative;
+    padding-right: 15px;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.NavBar-button {
+    display: flex;
+    margin: 0 20px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.component-text,
+.component-text-body,
+.component-text-big-value {
+    font-family: Helvetica, sans-serif;
+    font-size: 16px;
+    color: #297FCA;
+    letter-spacing: 0;
+    line-height: 19px;
+    font-weight: 300;
+    text-decoration: none;
+    margin: 0;
+}
+
+.component-text-body {
+    opacity: 0.8;
+}
+
+.component-text-big-value {
+    font-size: 60px;
+    font-weight: 500;
+    margin: 50px 0;
+    align-self: center;
+}
