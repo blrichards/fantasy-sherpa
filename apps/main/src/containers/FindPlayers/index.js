@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import './styles.css'
 
-import PlayerCard from '../../components/player-card'
+import PlayerCard from '../../components/PlayerCard'
 
 @observer
 class Players extends Component {

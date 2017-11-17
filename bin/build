@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const chalk = require('chalk')
 const fs = require('fs')
 const { execSync } = require('child_process')
 
@@ -7,22 +8,26 @@ const { execSync } = require('child_process')
 
 const appFolder = './apps'
 
-console.log('\nstarting a new Fantasy Sherpa build\n')
+console.log(chalk.white.bold('\nstarting a new Fantasy Sherpa build\n'))
+
 
 try {
-  console.log('-- installing production builds for react apps')
+  console.log(chalk.white('installing production builds for react apps\n'))
   fs.readdirSync(appFolder).forEach(app => {
-    console.log(`---- installing '${app}'\n`)
+    console.log(`\n${chalk.blue('installing')} '${app}'`)
+    console.log('––––––––––––––––––')
     process.chdir(`apps/${app}`)
-    execSync('yarn --production=false && yarn build', {stdio: [0,1,2]})
+    execSync('yarn --production=false && yarn build', { stdio: [0, 1, 2] })
+    console.log('––––––––––––––––––')
     process.chdir('../..')
-    console.log(`---- '${app}' successfully installed`)
+    console.log(chalk.green('success'), `'${app}' installed\n`)
   })
-  console.log('-- all production builds installed\n')
+  console.log(chalk.white('\nall production builds installed\n'))
 } catch (e) {
-  console.log(e)
-  console.log('build failed\n')
+  console.log(chalk.red.bold('\nAn error occurred!\n'), e)
+  console.log(chalk.white.bold('build failed\n'))
 }
 
-console.log('build complete\n')
+
+console.log(chalk.white.bold('build complete\n'))
 console.log('\trun `yarn {start|dev}` to begin serving fantasy-sherpa\n')

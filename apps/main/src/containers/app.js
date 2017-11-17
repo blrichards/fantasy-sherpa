@@ -1,80 +1,75 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
   Route,
   Link,
+  withRouter,
 } from 'react-router-dom'
 
-// import Home from './home'
-import Players from './players'
-import './app.css'
+import MyTeam from './MyTeam'
+import FindPlayers from './FindPlayers'
+import './styles.css'
+import * as SocialIcons from './svg'
 
-const BasicExample = () => (
-  <Router>
+const NavBarButton = props => {
+  const className = `component-text${props.path === props.route ? '' : '-body'}`
+  return (
+    <div className='Button NavBar-button'>
+      <Link to={props.route} className={className}>
+        <p>{props.text}</p>
+      </Link>
+    </div>
+  )
+}
+
+const NavBar = withRouter(props => {
+  return (
     <div>
-      <div className='NavBar'>
-        <div className='NavBar-button'>
-          <Link to="/" className='component-text-body'>My Team</Link>
-        </div>
-        <div className='NavBar-button'>
-          <Link to="/players" className='component-text-body'>Find Players</Link>
-        </div>
-        <div className='NavBar-button'>
-          <a href='/auth/logout' className='component-text-body'>Logout</a>
+      <div id='NavBar'>
+        <NavBarButton
+          path={props.location.pathname}
+          route='/'
+          text='My Team'
+        />
+        <NavBarButton
+          path={props.location.pathname}
+          route='/players'
+          text='Find Players'
+        />
+        <div className='Button Logout NavBar-button'>
+          <a href='/auth/logout' className='component-text-body'>
+            <p>Logout</p>
+          </a>
         </div>
       </div>
+    </div>
+  )
+})
 
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-      <Route path="/players" component={Players}/>
+const Footer = () => (
+  <div id='Footer'>
+    <p className='component-text-body'>© 2017 Fantasy Sherpa</p>
+    <div id='Social'>
+      <SocialIcons.GooglePlus />
+      <SocialIcons.Facebook />
+      <SocialIcons.Twitter />
+      <SocialIcons.Instagram />
+      <SocialIcons.Behance />
+    </div>
+  </div>
+)
+
+const App = (props) => (
+  <Router>
+    <div>
+      <NavBar />
+      <Route exact path="/" component={MyTeam}/>
+      <Route path="/players" component={FindPlayers}/>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   </Router>
 )
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
-
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-)
-
-const Topics = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>
-          Rendering with React
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>
-          Components
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>
-          Props v. State
-        </Link>
-      </li>
-    </ul>
-
-    <Route path={`${match.url}/:topicId`} component={Topic}/>
-    <Route exact path={match.url} render={() => (
-      <h3>Please select a topic.</h3>
-    )}/>
-  </div>
-)
-
-const Topic = ({ match }) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
-)
-
-export default BasicExample
+export default App
