@@ -3,7 +3,7 @@ import { Panel } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
 import styles from './styles.css'
-import globalStyles from '../../containers/styles.css'
+import globalStyles from '../../index.css'
 import { PlayerSvg, StarSvg } from './svg'
 
 export default class PlayerCard extends Component {
