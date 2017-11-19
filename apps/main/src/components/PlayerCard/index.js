@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Panel } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
+import styles from './styles.css'
+import globalStyles from '../../containers/styles.css'
 import { PlayerSvg, StarSvg } from './svg'
-import './styles.css'
 
 export default class PlayerCard extends Component {
   static propTypes = {
@@ -24,7 +25,7 @@ export default class PlayerCard extends Component {
     this.stars = []
     for (let i = 0; i < Math.min(this.props.rating, 5); i++) {
       this.stars.push(
-        <div className="PlayerCard-star" key={i}>
+        <div className={styles.Star} key={i}>
           <StarSvg/>
         </div>,
       )
@@ -47,17 +48,17 @@ export default class PlayerCard extends Component {
 
     return (
       <Panel
-        bsClass="PlayerCard"
+        bsClass={styles.PlayerCard}
         header={
           <div>
             <div
               // onClick={this.toggle.bind(this)}
-              className="PlayerCard-header"
+              className={styles.Header}
               style={{ borderBottom: expanded ? null : 'none' }}
             >
-              <div className="PlayerCard-header-info">
-                <p className="component-text">{playerName}</p>
-                <p className="component-text-body">Position: {position}</p>
+              <div className={styles.HeaderInfo}>
+                <p className={globalStyles.Text}>{playerName}</p>
+                <p className={globalStyles.TextBody}>Position: {position}</p>
               </div>
               <PlayerSvg/>
             </div>
@@ -66,24 +67,24 @@ export default class PlayerCard extends Component {
         collapsible
         expanded={expanded}
       >
-        <div className="PlayerCard-content"
+        <div className={styles.Content}
              style={{ display: expanded ? null : 'none' }}>
-          <div className="PlayerCard-content-info">
-            <div className="PlayerCard-content-info-section">
-              <p className="component-text-body">Ranking</p>
+          <div className={styles.ContentInfo}>
+            <div className={styles.ContentInfoSection}>
+              <p className={globalStyles.TextBody}>Ranking</p>
               <div>
-                <p className="component-text-big-value">{ranking}</p>
+                <p className={globalStyles.TextBigValue}>{ranking}</p>
               </div>
             </div>
-            <div className="PlayerCard-content-info-projected">
-              <p className="component-text-body">Projected</p>
+            <div className={styles.ContentInfoProjected}>
+              <p className={globalStyles.TextBody}>Projected</p>
               <div>
-                <p className="component-text-big-value">{projected.toFixed(
+                <p className={globalStyles.TextBigValue}>{projected.toFixed(
                   1)}</p>
               </div>
             </div>
           </div>
-          <div className="PlayerCard-rating">
+          <div className={styles.Rating}>
             {this.stars}
           </div>
         </div>

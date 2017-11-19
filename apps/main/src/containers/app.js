@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   BrowserRouter as Router,
   Route,
@@ -8,13 +8,13 @@ import {
 
 import MyTeam from './MyTeam'
 import FindPlayers from './FindPlayers'
-import './styles.css'
+import styles from './styles.css'
 import * as SocialIcons from './svg'
 
 const NavBarButton = props => {
-  const className = `component-text${props.path === props.route ? '' : '-body'}`
+  const className = props.path === props.route ? styles.Text : styles.TextBody
   return (
-    <div className='Button NavBar-button'>
+    <div className={[styles.Button, styles.NavButton].join(' ')}>
       <Link to={props.route} className={className}>
         <p>{props.text}</p>
       </Link>
@@ -23,9 +23,10 @@ const NavBarButton = props => {
 }
 
 const NavBar = withRouter(props => {
+  const {Button, Logout, NavButton} = styles
   return (
     <div>
-      <div id='NavBar'>
+      <div className={styles.Nav}>
         <NavBarButton
           path={props.location.pathname}
           route='/'
@@ -36,8 +37,8 @@ const NavBar = withRouter(props => {
           route='/players'
           text='Find Players'
         />
-        <div className='Button Logout NavBar-button'>
-          <a href='/auth/logout' className='component-text-body'>
+        <div className={[Button, NavButton, Logout].join(' ')}>
+          <a href='/auth/logout' className={styles.TextBody}>
             <p>Logout</p>
           </a>
         </div>
@@ -47,9 +48,9 @@ const NavBar = withRouter(props => {
 })
 
 const Footer = () => (
-  <div id='Footer'>
-    <p className='component-text-body'>© 2017 Fantasy Sherpa</p>
-    <div id='Social'>
+  <div className={styles.Footer}>
+    <p className={styles.TextBody}>© 2017 Fantasy Sherpa</p>
+    <div className={styles.Social}>
       <SocialIcons.GooglePlus />
       <SocialIcons.Facebook />
       <SocialIcons.Twitter />

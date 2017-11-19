@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGODB_URI || 'localhost')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost', {
+  useMongoClient: true
+})
 
 const userSchema = new mongoose.Schema({
   guid: String,

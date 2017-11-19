@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
-import './styles.css'
 
+import styles from './styles.css'
 import PlayerCard from '../../components/PlayerCard'
 
 @observer
 class Players extends Component {
-
   render () {
     return (
-      <div className="App">
+      <div className={styles.FindPlayers}>
         <PlayerCard
           rating={5}
           position='WR'

@@ -1,16 +1,4 @@
 
-.App {
-    /*text-align: center;*/
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 50px;
-    flex-wrap: wrap;
-    height: 70vh;
-}
-
 .Button {
     -webkit-transition: .3s ease-in-out;
     transition: all .3s ease-in-out;
@@ -20,7 +8,8 @@
 
 .Button:active,
 .Button:hover {
-    box-shadow: 0 7px 13px 3px rgba(0,0,0,0.16);
+    /*box-shadow: 0 7px 13px 3px rgba(0,0,0,0.16);*/
+    box-shadow: 0 2px 3px #ccc;
     /*margin: 0 5px;*/
     /*transform: scale(1.05,1.05);*/
     /*color: #FFFFFF;*/
@@ -40,7 +29,7 @@
     box-shadow: none;
 }
 
-#NavBar {
+.Nav {
     position: absolute;
     width: 95vw;
     top: 0;
@@ -52,7 +41,7 @@
     align-items: center;
 }
 
-.NavBar-button {
+.NavButton {
     display: flex;
     padding: 0 10px;
     height: 40px;
@@ -60,7 +49,7 @@
     align-items: center;
 }
 
-#Footer {
+.Footer {
     width: 90vw;
     height: 50px;
     padding: 0 5vw;
@@ -71,24 +60,24 @@
     align-items: center;
 }
 
-#Footer p {
+.Footer p {
     font-size: 15px;
 }
 
-#Social {
+.Social {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-#Social svg {
+.Social svg {
     margin: 0 10px;
 }
 
-.component-text,
-.component-text-body,
-.component-text-big-value {
+.Text,
+.TextBody,
+.TextBigValue {
     font-family: Helvetica, sans-serif;
     font-size: 16px;
     color: #297FCA;
@@ -99,11 +88,11 @@
     margin: 0;
 }
 
-.component-text-body {
+.TextBody {
     opacity: 0.8;
 }
 
-.component-text-big-value {
+.TextBigValue {
     font-size: 60px;
     font-weight: 500;
     margin: 50px 0;
