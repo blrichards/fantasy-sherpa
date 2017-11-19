@@ -1,0 +1,16 @@
+
+.Navbar {
+    position: fixed;
+    width: 95vw;
+    top: 0;
+    padding: 0 15px;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.LogoutButton:hover {
+    background-color: red !important;
+}

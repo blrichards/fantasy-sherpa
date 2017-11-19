@@ -1,0 +1,25 @@
+.Footer {
+    width: 90vw;
+    height: 50px;
+    padding: 0 5vw;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Footer p {
+    font-size: 15px;
+}
+
+.Social {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.Social svg {
+    margin: 0 10px;
+}
