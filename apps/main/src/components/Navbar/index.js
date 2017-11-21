@@ -1,15 +1,16 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 
-import styles from './styles.css'
-import globalStyles from '../../index.css'
 import NavButton from './NavbarButton'
 import { Button } from './NavbarButton/styles.css'
+import styles from './styles.css'
+import globalStyles from '../../index.css'
 
 const Navbar = props => {
   return (
-    <div>
-      <div className={styles.Navbar}>
+    <div className={styles.Navbar}>
+      <div>Logo</div>
+      <nav className={styles.NavigationItems}>
         <NavButton
           path={props.location.pathname}
           route='/'
@@ -25,7 +26,7 @@ const Navbar = props => {
             <p>Logout</p>
           </a>
         </div>
-      </div>
+      </nav>
     </div>
   )
 }
