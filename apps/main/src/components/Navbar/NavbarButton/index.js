@@ -1,19 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import styles from './styles.css'
-import globalStyles from '../../../index.css'
+import styles from './styles.styl'
 
 const NavbarButton = props => {
-  const className = props.path === props.route ?
-    globalStyles.Text :
-    globalStyles.TextBody
+  const buttonStyle = [styles.Button]
+  if (props.route === props.path)
+    buttonStyle.push(styles.active)
   return (
-    <div className={styles.Button}>
-      <Link to={props.route} className={className}>
-        <p>{props.text}</p>
-      </Link>
-    </div>
+    <Link to={props.route} className={buttonStyle.join(' ')}>
+        <p className={styles.Text}>{props.text}</p>
+    </Link>
   )
 }
 

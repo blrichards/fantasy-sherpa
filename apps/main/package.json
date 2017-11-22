@@ -8,7 +8,9 @@
     "mobx-utils": "^3.2.1",
     "prop-types": "^15.6.0",
     "reactotron-apisauce": "^1.12.2",
-    "reactotron-react-js": "^1.12.2"
+    "reactotron-react-js": "^1.12.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1"
   },
   "dependencies": {
     "apisauce": "^0.14.1",

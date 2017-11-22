@@ -1,19 +1,16 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+import Layout from '../hoc/Layout'
 import MyTeam from './MyTeam'
 import FindPlayers from './FindPlayers'
 
 const App = (props) => (
   <BrowserRouter>
-    <div>
-      <Navbar />
+    <Layout>
       <Route exact path="/" component={MyTeam}/>
       <Route path="/players" component={FindPlayers}/>
-      <Footer />
-    </div>
+    </Layout>
   </BrowserRouter>
 )
 

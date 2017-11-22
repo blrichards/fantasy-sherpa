@@ -1,0 +1,29 @@
+@import '../../../index.styl'
+
+.BlueButton,
+.Button
+  transition: padding .1s ease-in-out
+  min-width: 90px
+  padding: 0 10px
+  display: flex
+  box-sizing: border-box
+  height: 100%
+  justify-content: center
+  align-items: center
+  text-align: center
+  text-decoration: none
+  p
+    font-weight: 400
+  &:hover
+    //box-shadow: 0 2px 3px #ccc
+    background-color: #3FA2F7
+    p
+      color: white
+      font-weight: bold
+      opacity: 1 !important
+    @media (min-width: 550px)
+      padding: 0 70px
+
+.active
+  border-bottom: solid 3px #3FA2F7
+  padding-top: 3px

@@ -1,24 +1,33 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
-import styles from './styles.css'
-import PlayerCard from '../../components/PlayerCard'
+import FilterBar from './FilterBar'
+import styles from './styles.styl'
+// import PlayerCard from '../../components/PlayerCard'
 
 @observer
-class Players extends Component {
+class FindPlayers extends Component {
+
+  state = {
+    activeFilter: 'All Positions'
+  }
+
+  filterClickHandler = (position) => {
+    this.setState({ activeFilter: position })
+  }
+
   render () {
     return (
       <div className={styles.FindPlayers}>
-        <PlayerCard
-          rating={5}
-          position='WR'
-          ranking='1st'
-          projected={13.5}
-          playerName='Antonio Brown'
+        <h1 className={styles.Header}>Sherpa Players</h1>
+        <FilterBar
+          clicked={this.filterClickHandler}
+          active={this.state.activeFilter}
         />
+        <p>Content</p>
       </div>
     )
   }
 }
 
-export default Players
+export default FindPlayers

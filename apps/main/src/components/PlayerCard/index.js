@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Panel } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
-import styles from './styles.css'
-import globalStyles from '../../index.css'
+import styles from './styles.styl'
 import { PlayerSvg, StarSvg } from './svg'
 
 export default class PlayerCard extends Component {
@@ -57,8 +56,8 @@ export default class PlayerCard extends Component {
               style={{ borderBottom: expanded ? null : 'none' }}
             >
               <div className={styles.HeaderInfo}>
-                <p className={globalStyles.Text}>{playerName}</p>
-                <p className={globalStyles.TextBody}>Position: {position}</p>
+                <p className={styles.Text}>{playerName}</p>
+                <p className={styles.TextBody}>Position: {position}</p>
               </div>
               <PlayerSvg/>
             </div>
@@ -71,15 +70,15 @@ export default class PlayerCard extends Component {
              style={{ display: expanded ? null : 'none' }}>
           <div className={styles.ContentInfo}>
             <div className={styles.ContentInfoSection}>
-              <p className={globalStyles.TextBody}>Ranking</p>
+              <p className={styles.TextBody}>Ranking</p>
               <div>
-                <p className={globalStyles.TextBigValue}>{ranking}</p>
+                <p className={styles.TextBigValue}>{ranking}</p>
               </div>
             </div>
             <div className={styles.ContentInfoProjected}>
-              <p className={globalStyles.TextBody}>Projected</p>
+              <p className={styles.TextBody}>Projected</p>
               <div>
-                <p className={globalStyles.TextBigValue}>{projected.toFixed(
+                <p className={styles.TextBigValue}>{projected.toFixed(
                   1)}</p>
               </div>
             </div>

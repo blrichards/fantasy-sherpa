@@ -1,0 +1,30 @@
+@import '../../index.styl'
+
+$header-height = 80px
+
+.Navbar
+  position: fixed
+  width: 100%
+  top: 0
+  height: $header-height
+  box-sizing: border-box
+  display: flex
+  justify-content: space-between
+  align-items: center
+  box-shadow: 0 2px 2px #ccc
+  background-color: white
+  z-index: 100
+
+.NavigationItems
+  display: flex
+  height: 100%
+
+.LogoutButton:hover
+  background-color: red !important
+
+.Logo
+  font-family: 'Assistant'
+  font-weight: normal
+  color: #297FCA
+  font-size: 25px
+  margin: 15px

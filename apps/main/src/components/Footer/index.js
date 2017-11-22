@@ -1,7 +1,7 @@
 import React from 'react'
 
-import globalStyles from '../../index.css'
-import styles from './styles.css'
+import globalStyles from '../../index.styl'
+import styles from './styles.styl'
 import * as SocialIcons from './svg'
 
 const Footer = () => (
