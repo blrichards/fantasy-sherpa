@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 
 import styles from './styles.styl'
 
-export default class Home extends Component {
-  render() {
+class MyTeam extends Component {
+
+  render () {
     return (
       <div className={styles.MyTeam}>
-        <h2>Hello world</h2>
+        <p>My Team</p>
       </div>
     )
   }
 }
+
+export default MyTeam
