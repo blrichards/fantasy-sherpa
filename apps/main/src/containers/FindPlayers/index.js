@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { observer } from 'mobx-react'
 
 import FilterBar from '../../components/FilterBar'
 import PlayerSuggestions from '../../components/PlayerSuggestions'
@@ -15,9 +14,7 @@ const playerData = [
   { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
 ]
 
-@observer
 class FindPlayers extends Component {
-
   state = {
     activeFilter: 'All Positions'
   }
