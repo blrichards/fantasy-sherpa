@@ -1,9 +1,19 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 
-import FilterBar from './FilterBar'
+import FilterBar from '../../components/FilterBar'
+import PlayerSuggestions from '../../components/PlayerSuggestions'
 import styles from './styles.styl'
-// import PlayerCard from '../../components/PlayerCard'
+
+const playerData = [
+  { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
+  { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
+  { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
+  { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
+  { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
+  { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
+  { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
+]
 
 @observer
 class FindPlayers extends Component {
@@ -24,7 +34,7 @@ class FindPlayers extends Component {
           clicked={this.filterClickHandler}
           active={this.state.activeFilter}
         />
-        <p>Content</p>
+        <PlayerSuggestions data={playerData}/>
       </div>
     )
   }

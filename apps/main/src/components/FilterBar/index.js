@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FilterBarButton from './FilterBarButton'
+import FilterBarButton from './FilterBarButton/index'
 import styles from './styles.styl'
 
 const positions = [
