@@ -20,11 +20,10 @@ const Navbar = props => {
           route='/players'
           text='Find Players'
         />
-        <div className={[Button, styles.LogoutButton].join(' ')}>
-          <a href='/auth/logout' className={styles.Text}>
-            <p>Logout</p>
-          </a>
-        </div>
+        <a href='/auth/logout'
+           className={[Button, styles.LogoutButton].join(' ')}>
+          <p className={styles.Text}>Logout</p>
+        </a>
       </nav>
     </div>
   )
