@@ -5,8 +5,6 @@ import NavButton from './NavbarButton'
 import { Button } from './NavbarButton/styles.styl'
 import styles from './styles.styl'
 
-console.log(styles)
-
 const Navbar = props => {
   return (
     <div className={styles.Navbar}>
