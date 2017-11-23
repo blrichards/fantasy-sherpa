@@ -28,8 +28,8 @@ class FindPlayers extends Component {
 
   render () {
     return (
-      <div className={styles.FindPlayers}>
-        <h1 className={styles.Header}>Sherpa Players</h1>
+      <div className={styles.findPlayers}>
+        <h1 className={styles.header}>Sherpa Players</h1>
         <FilterBar
           clicked={this.filterClickHandler}
           active={this.state.activeFilter}

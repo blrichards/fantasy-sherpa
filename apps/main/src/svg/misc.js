@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export const PlayerSvg = () => (
-  <svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1"
+export const Placeholder = (props) => (
+  <svg width={`${props.width}px`} height={`${props.height}px`} viewBox="0 0 50 50" version="1.1"
        xmlns="http://www.w3.org/2000/svg"
        xmlnsXlink="http://www.w3.org/1999/xlink">
     {/*Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch*/}
@@ -35,8 +36,12 @@ export const PlayerSvg = () => (
     </g>
   </svg>
 )
+Placeholder.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired
+}
 
-export const StarSvg = () => (
+export const Star = () => (
   <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1"
        xmlns="http://www.w3.org/2000/svg"
        xmlnsXlink="http://www.w3.org/1999/xlink">

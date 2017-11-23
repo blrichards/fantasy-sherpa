@@ -3,7 +3,7 @@ import { Panel } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
 import styles from './styles.styl'
-import { PlayerSvg, StarSvg } from './svg'
+import { Placeholder, Star } from '../../../svg/misc'
 
 export default class PlayerCard extends Component {
   static propTypes = {
@@ -25,7 +25,7 @@ export default class PlayerCard extends Component {
     for (let i = 0; i < Math.min(this.props.rating, 5); i++) {
       this.stars.push(
         <div className={styles.Star} key={i}>
-          <StarSvg/>
+          <Star/>
         </div>,
       )
     }
@@ -59,7 +59,7 @@ export default class PlayerCard extends Component {
                 <p className={styles.Text}>{playerName}</p>
                 <p className={styles.TextBody}>Position: {position}</p>
               </div>
-              <PlayerSvg/>
+              <Placeholder width={50} height={50}/>
             </div>
           </div>
         }
