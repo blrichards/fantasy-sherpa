@@ -3,8 +3,6 @@ import apisaucePlugin from 'reactotron-apisauce'
 
 import DebugConfig from './DebugConfig'
 
-
-
 Reactotron
   .configure()
   .use(apisaucePlugin({ /* config */ }))

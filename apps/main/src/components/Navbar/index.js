@@ -1,5 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import NavButton from './NavbarButton'
 import { Button } from './NavbarButton/styles.styl'
@@ -20,6 +21,7 @@ const Navbar = props => {
           route='/players'
           text='Find Players'
         />
+        <img />
         <a href='/auth/logout'
            className={[Button, styles.LogoutButton].join(' ')}>
           <p className={styles.Text}>Logout</p>
@@ -29,4 +31,8 @@ const Navbar = props => {
   )
 }
 
-export default withRouter(Navbar)
+const mapStateToProps = (state) => ({
+  user: state.user.user
+})
+
+export default connect(mapStateToProps)(withRouter(Navbar))
