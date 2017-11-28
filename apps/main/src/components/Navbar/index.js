@@ -7,6 +7,8 @@ import { Button } from './NavbarButton/styles.styl'
 import styles from './styles.styl'
 
 const Navbar = props => {
+  const { profileImage = 'https://homewardboundaz.org/wp-content/uploads/2016/09/person-placeholder.jpg' } = props.user
+  console.log(props.user)
   return (
     <div className={styles.Navbar}>
       <p className={styles.Logo}>fantasy sherpa</p>
@@ -21,11 +23,14 @@ const Navbar = props => {
           route='/players'
           text='Find Players'
         />
-        <img />
+        {/*<div className={styles.Profile}>*/}
+          {/*<img alt='profile' src={profileImage}/>*/}
+        {/*</div>*/}
         <a href='/auth/logout'
            className={[Button, styles.LogoutButton].join(' ')}>
           <p className={styles.Text}>Logout</p>
         </a>
+
       </nav>
     </div>
   )

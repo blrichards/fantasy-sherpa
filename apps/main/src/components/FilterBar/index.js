@@ -22,7 +22,7 @@ const FilterBar = props => {
           text={position}
           clicked={() => props.clicked(position)}
           key={position}
-          active={position === props.active}
+          active={props.active(position)}
         />
       ))}
     </div>
@@ -30,7 +30,7 @@ const FilterBar = props => {
 }
 FilterBar.propTypes = {
   clicked: PropTypes.func.isRequired,
-  active: PropTypes.string
+  active: PropTypes.func.isRequired
 }
 
 export default FilterBar

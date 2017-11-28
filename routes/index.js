@@ -15,7 +15,7 @@ router.get('/user', function(req, res) {
   })
 })
 
-router.get('/*', function(req, res) {
+router.get('/', function(req, res) {
   if (!req.session.user) {
     return res.redirect('/auth/login')
   }

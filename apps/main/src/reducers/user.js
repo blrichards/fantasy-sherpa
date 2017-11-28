@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable'
 
 export const INITIAL_STATE = Immutable({
-  user: null
+  user: {}
 })
 
 const reducer = (state = INITIAL_STATE, action) => {

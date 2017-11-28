@@ -17,8 +17,8 @@ class App extends Component {
     } else
       console.log(data.error)
   }
-  render () {
 
+  render () {
     return (
       <Aux>
         <BrowserRouter>

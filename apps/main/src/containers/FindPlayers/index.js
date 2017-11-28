@@ -16,11 +16,30 @@ const playerData = [
 
 class FindPlayers extends Component {
   state = {
-    activeFilter: 'All Positions'
+    activeFilters: []
   }
 
   filterClickHandler = (position) => {
-    this.setState({ activeFilter: position })
+    const { activeFilters } = this.state
+    if (activeFilters.length === 0) {
+      if (position !== 'All Positions')
+        this.setState({ activeFilters: [position] })
+    } else if (position === 'All Positions') {
+      this.setState({ activeFilters: [] })
+    } else {
+      this.setState(prevState => {
+        const state = { activeFilters: [...prevState.activeFilters, position] }
+        if (state.activeFilters.length === 6)
+          state.activeFilters = []
+        return state
+      })
+    }
+  }
+
+  isActiveHandler = (position) => {
+    if (position === 'All Positions')
+      return this.state.activeFilters.length === 0
+    return this.state.activeFilters.find((p) => p === position) !== undefined
   }
 
   render () {
@@ -29,7 +48,7 @@ class FindPlayers extends Component {
         <h1 className={styles.header}>Sherpa Players</h1>
         <FilterBar
           clicked={this.filterClickHandler}
-          active={this.state.activeFilter}
+          active={this.isActiveHandler}
         />
         <PlayerSuggestions data={playerData}/>
       </div>
