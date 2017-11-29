@@ -4,28 +4,24 @@ import { connect } from 'react-redux'
 
 import NavButton from './NavbarButton'
 import { Button } from './NavbarButton/styles.styl'
+import { baseUrl } from '../../config'
 import styles from './styles.styl'
 
 const Navbar = props => {
-  const { profileImage = 'https://homewardboundaz.org/wp-content/uploads/2016/09/person-placeholder.jpg' } = props.user
-  console.log(props.user)
   return (
     <div className={styles.Navbar}>
       <p className={styles.Logo}>fantasy sherpa</p>
       <nav className={styles.NavigationItems}>
         <NavButton
           path={props.location.pathname}
-          route='/'
+          route={`${baseUrl}/`}
           text='My Team'
         />
         <NavButton
           path={props.location.pathname}
-          route='/players'
+          route={`${baseUrl}/players`}
           text='Find Players'
         />
-        {/*<div className={styles.Profile}>*/}
-          {/*<img alt='profile' src={profileImage}/>*/}
-        {/*</div>*/}
         <a href='/auth/logout'
            className={[Button, styles.LogoutButton].join(' ')}>
           <p className={styles.Text}>Logout</p>

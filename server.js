@@ -4,6 +4,7 @@ const path = require('path')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const favicon = require('serve-favicon')
 
 const app = express()
 
@@ -23,12 +24,14 @@ app.use(session({
 }))
 app.use(express.static(path.join(__dirname, 'public')))
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 /* Routes config */
 const auth = require('./routes/auth')
 const index = require('./routes/index')
+const api = require('./routes/api')
 
+app.use('/api', api)
 app.use('/auth', auth)
 app.use('/', index)
 

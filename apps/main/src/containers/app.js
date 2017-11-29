@@ -1,45 +1,42 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import axios from 'axios'
 
-import Aux from '../hoc/Aux'
+import WithLoading from '../hoc/WithLoading'
 import Layout from '../hoc/Layout'
 import MyTeam from './MyTeam'
 import FindPlayers from './FindPlayers'
-import { UserActions } from '../actions/user'
+import { baseUrl } from '../config'
+import { StartupActions } from '../redux/StartupRedux'
 
 class App extends Component {
-  async componentDidMount() {
-    const { status, data = {}} = await axios.get('/user')
-    if (status === 200) {
-      this.props.setUser(data.user)
-    } else
-      console.log(data.error)
+  componentDidMount () {
+    this.props.startup()
   }
 
   render () {
     return (
-      <Aux>
+      <WithLoading loading={this.props.loading}>
         <BrowserRouter>
           <Layout>
-            <Route exact path="/" component={MyTeam}/>
-            <Route path="/players" component={FindPlayers}/>
+            <Route exact path={`${baseUrl}/`} component={MyTeam}/>
+            <Route path={`${baseUrl}/players`} component={FindPlayers}/>
           </Layout>
         </BrowserRouter>
-      </Aux>
+      </WithLoading>
     )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.user
+    loading: state.user.fetching
   }
 }
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUser: (user) => dispatch(UserActions.setUser(user))
+    startup: () => dispatch(StartupActions.startup())
   }
 }
 

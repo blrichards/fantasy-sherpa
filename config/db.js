@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   profileImage: String,
   firstName: String,
   lastName: String,
-  accessToken: String,
+  accessToken: String
 })
 
 const User = mongoose.model('User', userSchema)
