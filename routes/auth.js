@@ -46,8 +46,7 @@ router.get('/yahoo/callback', function(req, res) {
   request.post(options, function(err, response, body) {
     const guid = body.xoauth_yahoo_guid
     const accessToken = body.access_token
-    const socialApiUrl = 'https://social.yahooapis.com/v1/user/' + guid +
-      '/profile?format=json'
+    const socialApiUrl = 'https://social.yahooapis.com/v1/user/' + guid + '/profile?format=json'
 
     const options = {
       url: socialApiUrl,
@@ -58,12 +57,15 @@ router.get('/yahoo/callback', function(req, res) {
 
     // 2. Retrieve profile information about the current user.
     request.get(options, function(err, response, body) {
-
       // 3. Create a new user account or return an existing one.
       User.findOne({ guid: guid }, function(err, existingUser) {
         if (existingUser) {
-          req.session.user = existingUser
-          return res.redirect('/')
+          // Refresh access token
+          existingUser.accessToken = accessToken
+          existingUser.save(err => {
+            req.session.user = existingUser
+            return res.redirect('/')
+          })
         }
 
         const user = new User({

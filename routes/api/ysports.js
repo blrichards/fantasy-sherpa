@@ -1,20 +1,33 @@
 const express = require('express')
 const router = express.Router()
-const YQL = require('yql')
-const { clientId, clientSecret } = require('../../config/yahoo')
+const request = require('request')
 
 router.get('/leagues', (req, res) => {
   if (!req.session.user)
     return res.redirect('/auth/login')
-  const qs = 'select * from fantasysports.games where game_key="238"'
+
+})
+
+router.get('/games', (req, res) => {
+  if (!req.session.user)
+    return res.redirect('/auth/login')
+
+  const gamesUrl = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games?format=json'
+  const accessToken = req.session.user.accessToken
+
   const options = {
-    Authorization: 'BEARER ' + req.session.user.accessToken
+    url: gamesUrl,
+    headers: { Authorization: 'Bearer ' + accessToken },
+    rejectUnauthorized: false,
+    json: true,
   }
-  const query = new YQL(qs, options)
-  query.exec((err, qres) => {
-    if (err)
+
+  request.get(options, function(err, response, body) {
+    if (err) {
+      res.status(response.status)
       res.send(err)
-    console.log(qres)
+    }
+    res.send(body)
   })
 })
 
