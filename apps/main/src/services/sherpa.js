@@ -6,14 +6,18 @@ const api = create({
 
 const getUser = () => api.get('/user')
 
-const getLeagues = () => api.get('/ysports/leagues')
+const getLeagues = (game_keys) => api.get('/ysports/leagues', {
+  game_keys
+})
 
 const getGames = () => api.get('/ysports/games')
+const getTeams = () => api.get('/ysports/teams')
 
 const sherpaApi = {
   getUser,
   getLeagues,
   getGames,
+  getTeams,
 }
 
 export default sherpaApi

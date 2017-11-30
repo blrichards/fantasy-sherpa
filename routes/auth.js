@@ -62,7 +62,7 @@ router.get('/yahoo/callback', function(req, res) {
         if (existingUser) {
           // Refresh access token
           existingUser.accessToken = accessToken
-          existingUser.save(err => {
+          return existingUser.save(err => {
             req.session.user = existingUser
             return res.redirect('/')
           })
@@ -79,7 +79,7 @@ router.get('/yahoo/callback', function(req, res) {
 
         user.save(function(err) {
           req.session.user = user
-          res.redirect('/')
+          return res.redirect('/')
         })
       })
     })
