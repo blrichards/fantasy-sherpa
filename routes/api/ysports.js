@@ -7,8 +7,32 @@ router.get('/leagues', (req, res) => {
   if (!req.session.user)
     return res.redirect('/auth/login')
 
-  const query = 'game_keys=' + req.query.game_keys.join(',')
-  const gamesUrl = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/leagues;' + query + '?format=json'
+  // const keys = ';game_keys=' + req.query.game_keys.join(',')
+  const gamesUrl = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/leagues?format=json'
+  const accessToken = req.session.user.accessToken
+
+  const options = {
+    url: gamesUrl,
+    headers: { Authorization: 'Bearer ' + accessToken },
+    rejectUnauthorized: false,
+    json: true,
+  }
+
+  request.get(options, function(err, response, body) {
+    if (err) {
+      res.status(response.status)
+      res.send(err)
+    }
+    res.send(body)
+  })
+})
+
+router.get('/league/info', (req, res) => {
+  if (!req.session.user)
+    return res.redirect('/auth/login')
+
+  // const keys = ';game_keys=' + req.query.game_keys.join(',')
+  const gamesUrl = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/leagues?format=json'
   const accessToken = req.session.user.accessToken
 
   const options = {
