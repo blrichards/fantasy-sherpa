@@ -9,6 +9,7 @@ const initItem = (player, index) => {
     <TeamCard
       name={player.name.full}
       position={player.position}
+      url={player.url}
       key={index}
     />
   )
