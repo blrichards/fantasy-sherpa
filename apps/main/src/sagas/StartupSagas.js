@@ -5,7 +5,7 @@ import { flattenTo } from '../transforms/ApiResponses'
 
 export function* startup(api) {
   // Start loading spinner
-  yield put(UserActions.setFetching(true, 'fetching your leagues...'))
+  yield put(UserActions.setFetching(true, 'Fetching your leagues.'))
 
   // Fetch league data and store in redux
   try {

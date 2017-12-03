@@ -5,12 +5,15 @@ import { flattenTo } from '../transforms/ApiResponses'
 
 export function *initLeague(api, { index }) {
   const league = (yield select(UserSelectors.leagues))[index]
-  yield put(UserActions.setFetching(true, `Getting the deats on "${league.name}"...`))
+  yield put(UserActions.setFetching(true, `Getting the deats on "${league.name}".`))
 
   try {
     const teams = yield call(fetchLeagueTeams, api, league)
-    console.tron.log(teams)
     yield put(UserActions.setTeams(teams))
+
+    const team = yield call(findUserTeam, api, teams)
+    yield put(UserActions.setTeam(team))
+    console.tron.log(yield select(UserSelectors.team))
   } catch (e) {
     console.tron.error(e)
   }
@@ -24,15 +27,15 @@ export function *initLeague(api, { index }) {
 //////////////////////////////
 
 function *fetchLeagueTeams(api, league) {
-  const { league_key } = league
+  const { league_key: leagueKey } = league
+
   // Call API
-  const { ok, problem, data } = yield call(api.getTeams, league_key)
+  const { ok, problem, data } = yield call(api.getTeams, leagueKey)
   if (!ok)
     throw new Error(problem)
 
   // flatten json data
   const flattened = flattenTo(data, key => key === 'team')
-  const stopAt = (key) => key === 'managers' || key === 'roster_adds'
 
   // get info for all leagues
   return Object.keys(flattened).reduce((buf, x) => {
@@ -77,4 +80,22 @@ function parseTeam(x) {
     }
     return team
   }, { managers: [] })
+}
+
+function *findUserTeam(api, teams) {
+  const { data: { guid = null } = {} } = yield call(api.getUser)
+  if (!guid)
+    throw new Error('couldn\'t get user')
+  let userTeam = null
+
+  teams.some(team => {
+    const userFound = team.managers.some(manager => {
+      return manager.guid === guid
+    })
+    if (userFound)
+      userTeam = team
+    return userFound
+  })
+
+  return userTeam
 }

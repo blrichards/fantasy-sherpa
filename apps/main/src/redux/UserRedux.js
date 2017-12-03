@@ -9,6 +9,7 @@ const {Types, Creators} = createActions({
   setLeague: ['league'],
   initLeague: ['index'],
   setTeams: ['teams'],
+  setTeam: ['team'],
 })
 
 export const UserTypes = Types
@@ -22,6 +23,7 @@ export const INITIAL_STATE = Immutable({
   leagues: [],
   league: null,
   teams: [],
+  team: null,
 })
 
 /** Reducers **/
@@ -34,6 +36,8 @@ const setLeague = (state, {league}) => state.merge({league})
 
 const setTeams = (state, {teams}) => state.merge({teams})
 
+const setTeam = (state, {team}) => state.merge({team})
+
 /** Hookup Reducers to Types **/
 
 export const UserReducer = createReducer(INITIAL_STATE, {
@@ -41,6 +45,7 @@ export const UserReducer = createReducer(INITIAL_STATE, {
   [Types.SET_LEAGUES]: setLeagues,
   [Types.SET_LEAGUE]: setLeague,
   [Types.SET_TEAMS]: setTeams,
+  [Types.SET_TEAM]: setTeam,
 })
 
 /** Selectors **/
@@ -53,4 +58,5 @@ export const UserSelectors = {
   leagues: (state) => state.user.leagues,
   teams: (state) => state.user.teams,
   fetching: (state) => state.user.fetching,
+  team: (state) => state.user.team,
 }
