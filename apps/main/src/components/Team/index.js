@@ -4,13 +4,15 @@ import PropTypes from 'prop-types'
 import TeamCard from './TeamCard'
 import GridList from '../GridList'
 
-const initItem = (player, index) => (
-  <TeamCard
-    name={player.name}
-    position={player.position}
-    key={index}
-  />
-)
+const initItem = (player, index) => {
+  return (
+    <TeamCard
+      name={player.name.full}
+      position={player.position}
+      key={index}
+    />
+  )
+}
 
 const Team = props => {
   return (

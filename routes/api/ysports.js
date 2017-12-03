@@ -97,4 +97,28 @@ router.get('/games', (req, res) => {
   })
 })
 
+router.get('/team/roster', (req, res) => {
+  if (!req.session.user)
+    return res.redirect('/auth/login')
+
+  const { team_key: teamKey } = req.query
+  const url = `https://fantasysports.yahooapis.com/fantasy/v2/team/${teamKey}/roster?format=json`
+  const accessToken = req.session.user.accessToken
+
+  const options = {
+    url,
+    headers: { Authorization: 'Bearer ' + accessToken },
+    rejectUnauthorized: false,
+    json: true,
+  }
+
+  request.get(options, function(err, response, body) {
+    if (err) {
+      res.status(response.status)
+      res.send(err)
+    }
+    res.send(body)
+  })
+})
+
 module.exports = router

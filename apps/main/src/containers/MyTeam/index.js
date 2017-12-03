@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 
 import Team from '../../components/Team'
 import styles from './styles.styl'
@@ -16,14 +17,21 @@ const team = [
 ]
 
 class MyTeam extends Component {
-  render () {
+  render() {
+    const { roster = team } = this.props
     return (
       <div className={styles.myTeam}>
         <h1 className={styles.header}>Team</h1>
-        <Team data={team}/>
+        <Team data={roster}/>
       </div>
     )
   }
 }
 
-export default MyTeam
+const mapStateToProps = (state) => {
+  return {
+    roster: state.user.roster
+  }
+}
+
+export default connect(mapStateToProps)(MyTeam)

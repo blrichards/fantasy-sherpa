@@ -13,7 +13,10 @@ export function *initLeague(api, { index }) {
 
     const team = yield call(findUserTeam, api, teams)
     yield put(UserActions.setTeam(team))
-    console.tron.log(yield select(UserSelectors.team))
+
+    const roster = yield call(fetchTeamRoster, api, team)
+    yield put(UserActions.setRoster(roster))
+    console.tron.log(roster)
   } catch (e) {
     console.tron.error(e)
   }
@@ -37,7 +40,7 @@ function *fetchLeagueTeams(api, league) {
   // flatten json data
   const flattened = flattenTo(data, key => key === 'team')
 
-  // get info for all leagues
+  // get info for all teams
   return Object.keys(flattened).reduce((buf, x) => {
     if (!x.endsWith('team'))
       return buf
@@ -46,30 +49,30 @@ function *fetchLeagueTeams(api, league) {
   }, [])
 }
 
-const includeTeamFields = new Set([
-  'team_key',
-  'team_id',
-  'name',
-  'url',
-  'team_logo',
-  'division_id',
-  'waiver_priority',
-  'number_of_moves',
-  'number_of_trades',
-  'roster_adds',
-  'league_scoring_type',
-  'has_draft_grade',
-  'draft_grade',
-  'draft_recap_url',
-  'managers',
-])
+const includeTeamFields = {
+  team_key: 'teamKey',
+  team_id: 'teamId',
+  name: 'name',
+  url: 'url',
+  team_logo: 'teamLogo',
+  division_id: 'divisionId',
+  waiver_priority: 'waiverPriority',
+  number_of_moves: 'numberOfMoves',
+  number_of_trades: 'numberOfTrades',
+  roster_adds: 'rosterAdds',
+  league_scoring_type: 'leagueScoringType',
+  has_draft_grade: 'hasDraftGrade',
+  draft_grade: 'draftGrade',
+  draft_recap_url: 'draftRecapUrl',
+  managers: 'managers',
+}
 
-function parseTeam(x) {
-  const flattenedTeam = flattenTo(x, (y) => includeTeamFields.has(y))
+function parseTeam(data) {
+  const flattenedTeam = flattenTo(data, (y) => includeTeamFields[y])
 
   return Object.keys(flattenedTeam).reduce((team, y) => {
     const fieldKeys = y.split('/')
-    const fieldName = fieldKeys[fieldKeys.length - 1]
+    const fieldName = includeTeamFields[fieldKeys[fieldKeys.length - 1]]
     if (fieldName === 'managers') {
       const flattenedManagers = flattenTo(flattenedTeam[y], (z) => z === 'manager')
       Object.keys(flattenedManagers).forEach(z => {
@@ -98,4 +101,49 @@ function *findUserTeam(api, teams) {
   })
 
   return userTeam
+}
+
+function *fetchTeamRoster(api, team) {
+  const { teamKey } = team
+
+  // Call API
+  const { ok, problem, data } = yield call(api.getRoster, teamKey)
+  if (!ok)
+    throw new Error(problem)
+
+  // flatten json data
+  const flattened = flattenTo(data, key => key === 'player')
+
+  // get info for all players
+  return Object.keys(flattened).reduce((buf, x) => {
+    if (!x.endsWith('player'))
+      return buf
+    buf.push(parsePlayer(flattened[x]))
+    return buf
+  }, [])
+}
+
+const includePlayerFields = {
+  player_key: 'playerKey',
+  player_id: 'playerId',
+  name: 'name',
+  editorial_team_full_name: 'teamName',
+  editorial_team_abbr: 'teamAbbr',
+  uniform_number: 'number',
+  display_position: 'position',
+  url: 'url',
+}
+
+function parsePlayer(data) {
+  const flattenedPlayer = flattenTo(data, (y) => includePlayerFields[y])
+
+  return Object.keys(flattenedPlayer).reduce((player, y) => {
+    const fieldKeys = y.split('/')
+    const jsonName = fieldKeys[fieldKeys.length - 1]
+    if (!includePlayerFields[jsonName])
+      return player
+    const fieldName = includePlayerFields[jsonName]
+    player[fieldName] = flattenedPlayer[y]
+    return player
+  }, {})
 }
