@@ -1,9 +1,9 @@
-import {put, call} from 'redux-saga/effects'
-import {UserActions} from '../redux/UserRedux'
+import {put, call, select} from 'redux-saga/effects'
+import {UserActions, UserSelectors} from '../redux/UserRedux'
 
 export function* startup(api) {
   // Start loading spinner
-  yield put(UserActions.setFetching(true))
+  yield put(UserActions.setFetching(true, 'fetching your leagues...'))
 
   // Fetch league data and store in redux
   try {

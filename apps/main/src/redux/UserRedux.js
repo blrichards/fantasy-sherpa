@@ -4,8 +4,10 @@ import {createReducer, createActions} from 'reduxsauce'
 /** Types and Actions **/
 
 const {Types, Creators} = createActions({
-  setFetching: ['fetching'],
+  setFetching: ['fetching', 'message'],
   setLeagues: ['leagues'],
+  setLeague: ['league'],
+  initLeague: ['index'],
 })
 
 export const UserTypes = Types
@@ -15,20 +17,25 @@ export const UserActions = Creators
 
 export const INITIAL_STATE = Immutable({
   fetching: false,
+  message: null,
   leagues: [],
+  league: null,
 })
 
 /** Reducers **/
 
-const setFetching = (state, {fetching}) => state.merge({fetching})
+const setFetching = (state, {fetching, message}) => state.merge({fetching, message})
 
 const setLeagues = (state, {leagues}) => state.merge({leagues})
+
+const setLeague = (state, {league}) => state.merge({league})
 
 /** Hookup Reducers to Types **/
 
 export const UserReducer = createReducer(INITIAL_STATE, {
   [Types.SET_FETCHING]: setFetching,
   [Types.SET_LEAGUES]: setLeagues,
+  [Types.SET_LEAGUE]: setLeague,
 })
 
 /** Selectors **/
