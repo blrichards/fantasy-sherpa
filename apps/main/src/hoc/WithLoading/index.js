@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-// import Loader from 'halogen/GridLoader'
-// import { Loader } from 'react-loaders'
-import {HashLoader} from 'react-spinners'
+import { DotLoader as Loader } from 'halogen'
 
 import styles from './styles.styl'
 import Modal from '../Modal'
@@ -18,7 +16,7 @@ const WithLoading = (props) => {
       show
       component={
         <div className={styles.container}>
-          <HashLoader color="#3FA2F7" loading={props.loading}/>
+          <Loader color="#3FA2F7" size='86px' margin='50px' loading={props.loading}/>
           <p className={styles.message}>{message}</p>
         </div>
       }
