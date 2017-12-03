@@ -16,7 +16,9 @@ const getLeagues = () => api.get('/ysports/leagues')
 
 const getGames = () => api.get('/ysports/games')
 
-const getTeams = () => api.get('/ysports/teams')
+const getTeams = (leagueKey) => api.get('/ysports/league/teams', {
+  league_key: leagueKey
+})
 
 const sherpaApi = {
   getUser,

@@ -8,11 +8,11 @@ router.get('/leagues', (req, res) => {
     return res.redirect('/auth/login')
 
   // const keys = ';game_keys=' + req.query.game_keys.join(',')
-  const gamesUrl = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/leagues?format=json'
+  const url = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/leagues?format=json'
   const accessToken = req.session.user.accessToken
 
   const options = {
-    url: gamesUrl,
+    url,
     headers: { Authorization: 'Bearer ' + accessToken },
     rejectUnauthorized: false,
     json: true,
@@ -27,16 +27,16 @@ router.get('/leagues', (req, res) => {
   })
 })
 
-router.get('/league/info', (req, res) => {
+router.get('/league/teams', (req, res) => {
   if (!req.session.user)
     return res.redirect('/auth/login')
 
-  // const keys = ';game_keys=' + req.query.game_keys.join(',')
-  const gamesUrl = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/leagues?format=json'
+  const { league_key: leagueKey } = req.query
+  const url = `https://fantasysports.yahooapis.com/fantasy/v2/league/${leagueKey}/teams?format=json`
   const accessToken = req.session.user.accessToken
 
   const options = {
-    url: gamesUrl,
+    url,
     headers: { Authorization: 'Bearer ' + accessToken },
     rejectUnauthorized: false,
     json: true,
@@ -55,11 +55,11 @@ router.get('/teams', (req, res) => {
   if (!req.session.user)
     return res.redirect('/auth/login')
 
-  const gamesUrl = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/teams?format=json'
+  const url = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games/teams?format=json'
   const accessToken = req.session.user.accessToken
 
   const options = {
-    url: gamesUrl,
+    url,
     headers: { Authorization: 'Bearer ' + accessToken },
     rejectUnauthorized: false,
     json: true,
@@ -78,11 +78,11 @@ router.get('/games', (req, res) => {
   if (!req.session.user)
     return res.redirect('/auth/login')
 
-  const gamesUrl = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games?format=json'
+  const url = 'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games?format=json'
   const accessToken = req.session.user.accessToken
 
   const options = {
-    url: gamesUrl,
+    url,
     headers: { Authorization: 'Bearer ' + accessToken },
     rejectUnauthorized: false,
     json: true,
