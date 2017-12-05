@@ -16,7 +16,10 @@ export function *initLeague(api, { index }) {
 
     const roster = yield call(fetchTeamRoster, api, team)
     yield put(UserActions.setRoster(roster))
-    console.tron.log(roster)
+
+    const recommendations = yield call(generateRecommendations, api, league, roster)
+    // console.tron.log(recommendations)
+    // yield put()
   } catch (e) {
     console.tron.error(e)
   }
@@ -111,16 +114,7 @@ function *fetchTeamRoster(api, team) {
   if (!ok)
     throw new Error(problem)
 
-  // flatten json data
-  const flattened = flattenTo(data, key => key === 'player')
-
-  // get info for all players
-  return Object.keys(flattened).reduce((buf, x) => {
-    if (!x.endsWith('player'))
-      return buf
-    buf.push(parsePlayer(flattened[x]))
-    return buf
-  }, [])
+  return parsePlayers(data)
 }
 
 const includePlayerFields = {
@@ -132,6 +126,9 @@ const includePlayerFields = {
   uniform_number: 'number',
   display_position: 'position',
   url: 'url',
+  status: 'status',
+  status_full: 'status_full',
+  selected_position: 'selectedPosition',
 }
 
 function parsePlayer(data) {
@@ -144,6 +141,70 @@ function parsePlayer(data) {
       return player
     const fieldName = includePlayerFields[jsonName]
     player[fieldName] = flattenedPlayer[y]
+    if (fieldName === 'selectedPosition')
+      player[fieldName] = player[fieldName][player[fieldName].length - 1]['position']
     return player
   }, {})
+}
+
+function parsePlayers(data) {
+  // flatten json data
+  const flattened = flattenTo(data, key => key === 'player')
+
+  // get info for all players
+  return Object.keys(flattened).reduce((buf, x) => {
+    if (!x.endsWith('player'))
+      return buf
+    buf.push(parsePlayer(flattened[x]))
+    return buf
+  }, [])
+}
+
+function *generateRecommendations(api, league, roster) {
+  const myPlayers = new Set()
+  roster.forEach(player => myPlayers.add(player.name.full))
+
+  const lineup = roster.filter(player => player.selectedPosition !== 'BN')
+  const bench = roster.filter(player => player.selectedPosition === 'BN')
+
+  const playerByPosition = {}
+
+  // Get all players
+  const players = []
+  let totalPlayers = 300
+  let count = 25
+  for (let start = 0; start < totalPlayers; start += 25) {
+    const { ok, problem, data } = yield call(api.getPlayers, league.league_key, start, count)
+    if (!ok)
+      throw new Error('Error fetching league players: ' + problem)
+    players.push(...parsePlayers(data))
+  }
+
+  players.forEach((player, rank) => {
+    if (!playerByPosition[player.position])
+      playerByPosition[player.position] = {}
+    const position = playerByPosition[player.position]
+    position[player.name.full] = rank
+  })
+
+  // Get taken players
+  const takenPlayers = []
+  totalPlayers = 225
+  for (let start = 0; start < totalPlayers; start += 25) {
+    const { ok, problem, data } = yield call(api.getTakenPlayers, league.league_key, start, count)
+    if (!ok)
+      throw new Error('Error fetching league players: ' + problem)
+    takenPlayers.push(...parsePlayers(data))
+  }
+
+  takenPlayers.forEach(player => {
+    if (!playerByPosition[player.position])
+      playerByPosition[player.position] = {}
+    const position = playerByPosition[player.position]
+    if (!myPlayers.has(player.name.full))
+      delete position[player.name.full]
+  })
+
+  console.log(playerByPosition)
+
 }

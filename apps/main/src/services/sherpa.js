@@ -20,6 +20,19 @@ const getTeams = (leagueKey) => api.get('/ysports/league/teams', {
   league_key: leagueKey
 })
 
+const getPlayers = (leagueKey, start, count) => api.get('/ysports/league/players', {
+  league_key: leagueKey,
+  start,
+  count,
+})
+// const getPlayers = (leagueKey, start, count) => yahoo.get(`/league/${leagueKey}/players;sort=AR;start=${start};count=${count}?format=json`)
+
+const getTakenPlayers = (leagueKey, start, count) => api.get('/ysports/league/players/taken', {
+  league_key: leagueKey,
+  start,
+  count,
+})
+
 const getRoster = (teamKey) => api.get('/ysports/team/roster', {
   team_key: teamKey
 })
@@ -30,6 +43,8 @@ const sherpaApi = {
   getGames,
   getTeams,
   getRoster,
+  getPlayers,
+  getTakenPlayers,
 }
 
 export default sherpaApi

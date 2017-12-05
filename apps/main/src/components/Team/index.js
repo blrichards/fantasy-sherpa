@@ -16,18 +16,26 @@ const initItem = (player, index) => {
 }
 
 const Team = props => {
+  const { filter } = props
+  let data = props.data
+  if (filter) {
+    data = data.filter(filter)
+  }
+
   return (
     <GridList
       initItem={initItem}
-      data={props.data}
+      data={data}
     />
   )
 }
+
 Team.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     position: PropTypes.string,
   })).isRequired,
+  filter: PropTypes.func,
 }
 
 export default Team

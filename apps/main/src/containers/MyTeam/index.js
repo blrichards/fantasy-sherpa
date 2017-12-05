@@ -17,12 +17,23 @@ const team = [
 ]
 
 class MyTeam extends Component {
+
+  filterRosterPlayers = (player) => {
+    return player.selectedPosition !== 'BN'
+  }
+
+  filterBenchPlayers = (player) => {
+    return player.selectedPosition === 'BN'
+  }
+
   render() {
     const { roster = team } = this.props
     return (
       <div className={styles.myTeam}>
-        <h1 className={styles.header}>Team</h1>
-        <Team data={roster}/>
+        <h1 className={styles.header}>Lineup</h1>
+        <Team data={roster} filter={this.filterRosterPlayers}/>
+        <h1 className={styles.header}>Bench</h1>
+        <Team data={roster} filter={this.filterBenchPlayers}/>
       </div>
     )
   }
