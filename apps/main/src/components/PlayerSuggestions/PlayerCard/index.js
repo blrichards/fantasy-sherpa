@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Panel } from 'react-bootstrap'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import styles from './styles.styl'
 import { Placeholder, Star } from '../../../svg/misc'
@@ -10,7 +11,7 @@ export default class PlayerCard extends Component {
     rating: PropTypes.number.isRequired,
     position: PropTypes.string.isRequired,
     ranking: PropTypes.string.isRequired,
-    projected: PropTypes.number.isRequired,
+    projected: PropTypes.number,
     playerName: PropTypes.string.isRequired,
   }
 
@@ -41,9 +42,22 @@ export default class PlayerCard extends Component {
       playerName,
       ranking,
       projected,
+      url,
     } = this.props
 
     const { expanded } = this.state
+
+    let headshot = <Placeholder width={50} height={50}/>
+    if (url) {
+      const Image = styled.div`
+        background: url(${url}) no-repeat top center;
+        background-color: #E4F1FD;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+      `
+      headshot = <Image/>
+    }
 
     return (
       <Panel
@@ -59,7 +73,7 @@ export default class PlayerCard extends Component {
                 <p className={styles.Text}>{playerName}</p>
                 <p className={styles.TextBody}>Position: {position}</p>
               </div>
-              <Placeholder width={50} height={50}/>
+              {headshot}
             </div>
           </div>
         }
@@ -78,8 +92,7 @@ export default class PlayerCard extends Component {
             <div className={styles.ContentInfoProjected}>
               <p className={styles.TextBody}>Projected</p>
               <div>
-                <p className={styles.TextBigValue}>{projected.toFixed(
-                  1)}</p>
+                <p className={styles.TextBigValue}>{projected ? projected.toFixed(1) : 'NA'}</p>
               </div>
             </div>
           </div>

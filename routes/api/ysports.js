@@ -20,7 +20,7 @@ router.get('/leagues', (req, res) => {
 
   request.get(options, function(err, response, body) {
     if (err) {
-      res.status(response.status)
+      res.status(500)
       return res.send(err)
     }
     res.send(body)
@@ -44,7 +44,7 @@ router.get('/league/teams', (req, res) => {
 
   request.get(options, function(err, response, body) {
     if (err) {
-      res.status(response.status)
+      res.status(500)
       return res.send(err)
     }
     res.send(body)
@@ -67,7 +67,7 @@ router.get('/teams', (req, res) => {
 
   request.get(options, function(err, response, body) {
     if (err) {
-      res.status(response.status)
+      res.status(500)
       return res.send(err)
     }
     res.send(body)
@@ -90,7 +90,7 @@ router.get('/games', (req, res) => {
 
   request.get(options, function(err, response, body) {
     if (err) {
-      res.status(response.status)
+      res.status(500)
       return res.send(err)
     }
     res.send(body)
@@ -114,7 +114,7 @@ router.get('/team/roster', (req, res) => {
 
   request.get(options, function(err, response, body) {
     if (err) {
-      res.status(response.status)
+      res.status(500)
       return res.send(err)
     }
     res.send(body)
@@ -138,7 +138,7 @@ router.get('/league/players', (req, res) => {
 
   request.get(options, function(err, response, body) {
     if (err) {
-      res.status(response.status)
+      res.status(500)
       return res.send(err)
     }
     res.send(body)
@@ -162,7 +162,7 @@ router.get('/league/players/taken', (req, res) => {
 
   request.get(options, function(err, response, body) {
     if (err) {
-      res.status(response.status)
+      res.status(500)
       return res.send(err)
     }
     res.send(body)

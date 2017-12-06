@@ -36,7 +36,7 @@
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
     "fs-extra": "3.0.1",
-    "halogen": "https://github.com/blrichards/halogen/archive/963f3d243ab5e48893d3915e615b48f5380bcbf5.tar.gz",
+    "halogen": "https://github.com/blrichards/halogen/archive/c7c38bbdb4ec5b56ccaa59fc8d6fe3ea50ee9de4.tar.gz",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "mobx-react-devtools": "^4.2.15",

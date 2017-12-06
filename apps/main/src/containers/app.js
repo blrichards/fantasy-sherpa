@@ -7,7 +7,7 @@ import Model from '../hoc/Modal'
 import SelectLeague from '../components/SelectLeague'
 import Layout from '../hoc/Layout'
 import MyTeam from './MyTeam'
-import FindPlayers from './FindPlayers'
+import FindPlayers from './SherpaRecs'
 import {baseUrl} from '../config'
 import {StartupActions} from '../redux/StartupRedux'
 

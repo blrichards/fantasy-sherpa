@@ -1,6 +1,6 @@
-import {put, call, select} from 'redux-saga/effects'
+import {put, call} from 'redux-saga/effects'
 
-import {UserActions, UserSelectors} from '../redux/UserRedux'
+import {UserActions} from '../redux/UserRedux'
 import { flattenTo } from '../transforms/ApiResponses'
 
 export function* startup(api) {

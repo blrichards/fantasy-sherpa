@@ -10,7 +10,8 @@ const initPlayerCard = (player, index) => (
     position={player.position}
     ranking={player.ranking}
     projected={player.projected}
-    playerName={player.name}
+    playerName={player.name.full}
+    url={player.url}
     key={index}
   />
 )
@@ -29,7 +30,9 @@ PlayerSuggestions.propTypes = {
     position: PropTypes.string,
     ranking: PropTypes.string,
     projected: PropTypes.number,
-    name: PropTypes.string
+    name: PropTypes.shape({
+      full: PropTypes.string
+    }).isRequired,
   })).isRequired
 }
 

@@ -13,14 +13,14 @@ const SelectLeague = (props) => {
           I'm sorry
         </p>
         <p className={styles.prompt}>
-          It looks like you don't have any leagues to choose from. 🙁
+          It looks like you don't have any leagues to choose from. <span role="img" aria-label="sad">🙁</span>
         </p>
         <p className={styles.prompt}>
           Sign up for <a className={styles.link} href="https://football.fantasysports.yahoo.com">
             <em>
             Yahoo! Fantasy Football
             </em>
-          </a> and come back to join us! 💯
+          </a> and come back to join us! <span role="img" aria-label="100">💯</span>
         </p>
       </div>
     )
@@ -33,7 +33,6 @@ const SelectLeague = (props) => {
       currentSeason = league.season
       return (
         <Aux>
-          {/*{index !== 0 ? <Dropdown.Divider/> : null }*/}
           <div className={styles.leagueYear}>
             {league.season}
           </div>

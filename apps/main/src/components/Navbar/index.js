@@ -20,7 +20,7 @@ const Navbar = props => {
         <NavButton
           path={props.location.pathname}
           route={`${baseUrl}/players`}
-          text='Find Players'
+          text='Sherpa Recs'
         />
         <a href='/auth/logout'
            className={[Button, styles.LogoutButton].join(' ')}>

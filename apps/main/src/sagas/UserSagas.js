@@ -1,4 +1,4 @@
-import { call, put, select } from 'redux-saga/effects'
+import { call, put, all, select } from 'redux-saga/effects'
 
 import { UserActions, UserSelectors } from '../redux/UserRedux'
 import { flattenTo } from '../transforms/ApiResponses'
@@ -18,10 +18,9 @@ export function *initLeague(api, { index }) {
     yield put(UserActions.setRoster(roster))
 
     const recommendations = yield call(generateRecommendations, api, league, roster)
-    // console.tron.log(recommendations)
-    // yield put()
+    yield put(UserActions.setRecommendations(recommendations))
   } catch (e) {
-    console.tron.error(e)
+    console.error(e)
   }
 
   yield put(UserActions.setLeague(league))
@@ -160,51 +159,102 @@ function parsePlayers(data) {
   }, [])
 }
 
-function *generateRecommendations(api, league, roster) {
-  const myPlayers = new Set()
-  roster.forEach(player => myPlayers.add(player.name.full))
+function *fetchPlayers(api, league, start, count, playerRank) {
+  const { ok, problem, data } = yield call(api.getPlayers, league.league_key, start, count)
+  if (!ok)
+    throw new Error('Error fetching league players: ' + problem)
 
-  const lineup = roster.filter(player => player.selectedPosition !== 'BN')
-  const bench = roster.filter(player => player.selectedPosition === 'BN')
-
-  const playerByPosition = {}
-
-  // Get all players
-  const players = []
-  let totalPlayers = 300
-  let count = 25
-  for (let start = 0; start < totalPlayers; start += 25) {
-    const { ok, problem, data } = yield call(api.getPlayers, league.league_key, start, count)
-    if (!ok)
-      throw new Error('Error fetching league players: ' + problem)
-    players.push(...parsePlayers(data))
-  }
-
+  const players = parsePlayers(data)
+  /* Build ranking map */
   players.forEach((player, rank) => {
-    if (!playerByPosition[player.position])
-      playerByPosition[player.position] = {}
-    const position = playerByPosition[player.position]
-    position[player.name.full] = rank
+    if (!playerRank[player.position])
+      playerRank[player.position] = {}
+    const position = playerRank[player.position]
+    position[player.playerId] = rank + start + 1
   })
+}
 
-  // Get taken players
+function *fetchTakenPlayers(api, league, start, count, takenPlayers) {
+  const { ok, problem, data } = yield call(api.getTakenPlayers, league.league_key, start, count)
+  if (!ok)
+    throw new Error('Error fetching league players: ' + problem)
+  takenPlayers.push(...parsePlayers(data))
+}
+
+function *generateRecommendations(api, league, roster) {
+  /* Separate team into lineup and bench players */
+  const team = roster.reduce((players, player) => {
+    const { lineup, bench } = players
+    if (player.selectedPosition === 'BN') {
+      if (!bench[player.position])
+        bench[player.position] = []
+      bench[player.position].push(player)
+    } else {
+      if (!lineup[player.position])
+        lineup[player.position] = []
+      lineup[player.position].push(player)
+    }
+    return players
+  }, { lineup: {}, bench: {} })
+
+  /* Fetch league players */
+  const playerCalls = []
+  const takenPlayerCalls = []
+  for (let start = 0; start < 1000; start += 25)
+    playerCalls.push({ start, count: 25 })
+  for (let start = 0; start < 225; start += 25)
+    takenPlayerCalls.push({ start, count: 25 })
+
+  const playerRank = {}
   const takenPlayers = []
-  totalPlayers = 225
-  for (let start = 0; start < totalPlayers; start += 25) {
-    const { ok, problem, data } = yield call(api.getTakenPlayers, league.league_key, start, count)
-    if (!ok)
-      throw new Error('Error fetching league players: ' + problem)
-    takenPlayers.push(...parsePlayers(data))
-  }
+  yield all([
+    ...playerCalls.map(options => call(fetchPlayers, api, league, options.start, options.count, playerRank)),
+    ...takenPlayerCalls.map(options => call(fetchTakenPlayers, api, league, options.start, options.count, takenPlayers))
+  ])
 
+  /* Remove taken players */
+  const myPlayers = new Set()
+  roster.forEach(player => myPlayers.add(player.playerId))
   takenPlayers.forEach(player => {
-    if (!playerByPosition[player.position])
-      playerByPosition[player.position] = {}
-    const position = playerByPosition[player.position]
-    if (!myPlayers.has(player.name.full))
-      delete position[player.name.full]
+    if (!playerRank[player.position])
+      playerRank[player.position] = {}
+    const position = playerRank[player.position]
+    if (!myPlayers.has(player.playerId))
+      delete position[player.playerId]
   })
 
-  console.log(playerByPosition)
+  /* Generate recommendations */
+  const recs = new Set()
+  Object.keys(playerRank).forEach(position => {
+    const positionRank = playerRank[position]
 
+    const lineup = team.lineup[position] || []
+    lineup.forEach(starter => {
+      const bench = team.bench[position] || []
+      bench.forEach(benched => {
+        if (benched.status !== undefined)
+          return
+        // console.tron.log(positionRank)
+        // console.tron.log(benched.playerId)
+        const benchedRank = positionRank[benched.playerId]
+        const starterRank = positionRank[starter.playerId]
+        if ((starter.status !== undefined || benchedRank < starterRank) && !recs.has(benched)) {
+          // console.tron.log(benchedRank)
+          benched.ranking = benchedRank
+          benched.rating = 5
+          recs.add(benched)
+        }
+      })
+    })
+  })
+
+  const recommendations = [...recs].sort((a, b) => {
+    if (a.ranking < b.ranking)
+      return -1
+    else if (a.ranking > b.ranking)
+      return 1
+    return 0
+  })
+
+  return recommendations
 }

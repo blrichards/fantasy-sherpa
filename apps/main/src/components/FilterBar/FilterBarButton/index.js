@@ -5,8 +5,8 @@ import styles from './styles.styl'
 
 const FilterBarButton = props => {
   let buttonStyles = [styles.button]
-  if (props.active)
-    buttonStyles.push(styles.active)
+  if (!props.active)
+    buttonStyles.push(styles.inactive)
 
   return (
     <button className={buttonStyles.join(' ')} onClick={props.clicked}>

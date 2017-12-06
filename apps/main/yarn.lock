@@ -3084,9 +3084,9 @@ gzip-size@3.0.0:
   dependencies:
     duplexer "^0.1.1"
 
-"halogen@https://github.com/blrichards/halogen/archive/963f3d243ab5e48893d3915e615b48f5380bcbf5.tar.gz":
+"halogen@https://github.com/blrichards/halogen/archive/c7c38bbdb4ec5b56ccaa59fc8d6fe3ea50ee9de4.tar.gz":
   version "0.3.0"
-  resolved "https://github.com/blrichards/halogen/archive/963f3d243ab5e48893d3915e615b48f5380bcbf5.tar.gz#a1227ca7a102708de2913f36399ec8a4ed846d89"
+  resolved "https://github.com/blrichards/halogen/archive/c7c38bbdb4ec5b56ccaa59fc8d6fe3ea50ee9de4.tar.gz#c54766cfedc7e23cd0bcb01d8716d8e4e05dbc1e"
   dependencies:
     babel-loader "^7.1.2"
     domkit "0.0.1"

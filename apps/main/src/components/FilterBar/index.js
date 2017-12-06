@@ -5,13 +5,13 @@ import FilterBarButton from './FilterBarButton/index'
 import styles from './styles.styl'
 
 const positions = [
-  'All Positions',
-  'Quarterback',
-  'Running Back',
-  'Wide Receiver',
-  'Tight End',
-  'D/ST',
-  'Kicker',
+  'Select All',
+  'QB',
+  'RB',
+  'WR',
+  'TE',
+  'DEF',
+  'K',
 ]
 
 const FilterBar = props => {
