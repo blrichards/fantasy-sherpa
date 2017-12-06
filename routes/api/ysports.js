@@ -169,4 +169,28 @@ router.get('/league/players/taken', (req, res) => {
   })
 })
 
+// router.put('/team/swap', (req, res) => {
+//   if (!req.session.user)
+//     return res.redirect('/auth/login')
+//
+//   const { league_key: leagueKey, start, count } = req.query
+//   const url =  `https://fantasysports.yahooapis.com/fantasy/v2/league/${leagueKey}/players;status=T;sort=AR;start=${start};count=${count}?format=json`
+//   const accessToken = req.session.user.accessToken
+//
+//   const options = {
+//     url,
+//     headers: { Authorization: 'Bearer ' + accessToken },
+//     rejectUnauthorized: false,
+//     json: true,
+//   }
+//
+//   request.get(options, function(err, response, body) {
+//     if (err) {
+//       res.status(500)
+//       return res.send(err)
+//     }
+//     res.send(body)
+//   })
+// })
+
 module.exports = router
