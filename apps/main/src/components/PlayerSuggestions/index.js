@@ -9,7 +9,7 @@ const initPlayerCard = (player, index) => (
     rating={player.rating}
     position={player.position}
     ranking={player.ranking}
-    projected={player.projected}
+    status={player.status}
     playerName={player.name.full}
     url={player.url}
     key={index}

@@ -11,7 +11,7 @@ export default class PlayerCard extends Component {
     rating: PropTypes.number.isRequired,
     position: PropTypes.string.isRequired,
     ranking: PropTypes.string.isRequired,
-    projected: PropTypes.number,
+    projected: PropTypes.string.isRequired,
     playerName: PropTypes.string.isRequired,
   }
 
@@ -41,7 +41,7 @@ export default class PlayerCard extends Component {
       position,
       playerName,
       ranking,
-      projected,
+      status,
       url,
     } = this.props
 
@@ -90,9 +90,9 @@ export default class PlayerCard extends Component {
               </div>
             </div>
             <div className={styles.ContentInfoProjected}>
-              <p className={styles.TextBody}>Projected</p>
+              <p className={styles.TextBody}>Status</p>
               <div>
-                <p className={styles.TextBigValue}>{projected ? projected.toFixed(1) : 'NA'}</p>
+                <p className={styles.TextBigValue}>{status}</p>
               </div>
             </div>
           </div>

@@ -5,16 +5,6 @@ import FilterBar from '../../components/FilterBar'
 import PlayerSuggestions from '../../components/PlayerSuggestions'
 import styles from './styles.styl'
 
-// const playerData = [
-//   { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
-//   { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
-//   { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
-//   { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
-//   { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
-//   { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
-//   { name: 'Player One', position: 'NA', ranking: 'NA', rating: 5, projected: 10.5 },
-// ]
-
 class SherpaRecs extends Component {
   state = {
     activeFilters: new Set(['Select All'])

@@ -253,15 +253,11 @@ function *generateRecommendations(api, league, roster) {
         const starterRank = position[starter.playerId].ranking
         if (starter.status !== undefined || benchedRank < starterRank) {
           benched.rating = 5
+          benched.status = 'BN'
           if ((!current || current.ranking > benched.ranking) && !recs.has(benched))
             current = benched
         }
       })
-
-      if (positionName === 'TE') {
-        console.tron.log(starter)
-        console.tron.log(sortedFreeAgents)
-      }
 
       /* Check free agents */
       let bestFreeAgent = null
@@ -275,7 +271,7 @@ function *generateRecommendations(api, league, roster) {
         return true
       })
 
-      console.tron.log(bestFreeAgent)
+      bestFreeAgent.status = 'AV'
 
       if (bestFreeAgent.ranking < starter.ranking || starter.status !== undefined) {
         if (!myPlayers.has(bestFreeAgent.playerId) && (!current || bestFreeAgent.ranking < current.ranking))
